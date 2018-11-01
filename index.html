@@ -25,11 +25,36 @@
             align-content: center;
             
         } 
+        a {
+            text-decoration: none;
+            display: inline-block;
+            padding: 8px 16px;
+        }
+
+        a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .previous {
+            background-color: #f1f1f1;
+            color: black;
+        }
+
+        .next {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .round {
+            border-radius: 50%;
+        }
     </style>
 
 
 </head>
-<div align="center"><input type="text" id="search"><button id="send">Search</button><br>
+
+<div align="center" ><input type="text" class="col-md-6 form-control x-series-search tt-input" placeholder="Search the movies in your library" autocomplete="off" spellcheck="false" style="position: relative; vertical-align: top; background-color: transparent;" dir="auto" id="search">
     </div>
 <div class="row">
     <div class="col-md-12">
@@ -43,7 +68,9 @@
     </div>
 </div>
 <div align="center">
-    <button id="first"><<<button id="previous"><</button><button id="next">></button>
+    <a href="#" id="first" class="previous round">&#8249;&#8249;</a>
+    <a href="#" id="previous" class="previous round">&#8249;</a>
+    <a href="#" id="next" class="next round">&#8250;</a>
 </div>
 
 <script type="text/javascript">
@@ -234,14 +261,11 @@
             fetch_movies(page_number);
             $("#previous").hide();
         });
-        $( '#send' ).click(function() {
-            search_movie();
-        });
         $('#search').keypress(function (e) {
              var key = e.which;
              if(key == 13)  // the enter key code
               {
-                $('#send').click();
+                search_movie();
                 return false;  
               }
         });
