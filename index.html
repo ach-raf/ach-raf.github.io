@@ -122,7 +122,7 @@
                         trailer_id = trailer[trailer.length - 1]['key'] ;
                     }
                     
-                    var imdb_link = String.format('http://www.omdbapi.com/?i={0}&apikey={1}', imdb_id, imdb_api);
+                    var imdb_link = String.format('https://www.omdbapi.com/?i={0}&apikey={1}', imdb_id, imdb_api);
                     $.ajax({
                         url: imdb_link,
                         type: "GET",
@@ -250,7 +250,7 @@
                 return false;  
               }
         });
-        
+
         
         
         
