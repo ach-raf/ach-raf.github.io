@@ -49,13 +49,30 @@
         .round {
             border-radius: 50%;
         }
+        .active-cyan-2 input[type=text]:focus:not([readonly]) {
+            border-bottom: 1px solid #4dd0e1;
+            box-shadow: 0 1px 0 0 #4dd0e1;
+        }
+        .active-cyan input[type=text] {
+            border-bottom: 1px solid #4dd0e1;
+            box-shadow: 0 1px 0 0 #4dd0e1;
+        }
+        .active-cyan .fa, .active-cyan-2 .fa {
+            color: #4dd0e1;
+        }
     </style>
 
 
 </head>
 
-<div align="center" ><input type="text" class="col-md-6 form-control x-series-search tt-input" placeholder="Search the movies in your library" autocomplete="off" spellcheck="false" style="position: relative; vertical-align: top; background-color: transparent;" dir="auto" id="search">
-    </div>
+<div align="center" >
+    <input type="text" class="col-md-6 form-control form-control-sm ml-3 w-75" placeholder="Search for movies" autocomplete="off" spellcheck="false" style="position: relative; vertical-align: top; " dir="auto" id="search">
+</div>
+<!-- Search form
+<form align="center" class="form-inline active-cyan-3 active-cyan-4">
+  <i class="fa fa-search" aria-hidden="true"></i>
+  <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+</form>-->
 <div class="row">
     <div class="col-md-12">
         <div id="x-series" class="table-responsive">
