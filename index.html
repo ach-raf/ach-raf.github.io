@@ -12,6 +12,7 @@
     <link href="Content/theme.css?h=TR+AxNkdlGpE4ORL33dafQ" rel="stylesheet" type="text/css">
     <link href="Content/movies.css?h=RPg3BW6ZB13VGaPL1TzoKg" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="scripts/library.js"></script>
 
     
     <style>
@@ -125,21 +126,6 @@
         }
     }
 
-    String.format = function() {
-        // The string containing the format items (e.g. "{0}")
-        // will and always has to be the first argument.
-        var theString = arguments[0];
-        
-        // start with the second argument (i = 1)
-        for (var i = 1; i < arguments.length; i++) {
-            // "gm" = RegEx options for Global search (more than one instance)
-            // and for Multiline search
-            var regEx = new RegExp("\\{" + (i - 1) + "\\}", "gm");
-            theString = theString.replace(regEx, arguments[i]);
-        }
-        
-        return theString;
-    }
      function fetch_movies_detail(results) {
         var my_movies = [];
         $.each(results, function(key, value) {
@@ -150,7 +136,7 @@
             var poster_path = value['poster_path'];
             var release_date = value['release_date'].substring(0, 4);
 
-            var movie_link = String.format('{0}/movie/{1}?api_key={2}&language=en-US&append_to_response=videos', base_link, tmdb_id, api_key)
+            var movie_link = `${base_link}/movie/${tmdb_id}?api_key=${api_key}&language=en-US&append_to_response=videos`
             $.ajax({
                 url: movie_link,
                 type: "GET",
@@ -161,7 +147,7 @@
                         trailer_id = trailer[trailer.length - 1]['key'] ;
                     }
                     
-                    var imdb_link = String.format('https://www.omdbapi.com/?i={0}&apikey={1}', imdb_id, imdb_api);
+                    var imdb_link = `https://www.omdbapi.com/?i=${imdb_id}&apikey=${imdb_api}`;
                     $.ajax({
                         url: imdb_link,
                         type: "GET",
@@ -201,7 +187,7 @@
     
     function fetch_movies(page_number) {
         $( "ul" ).empty();
-        url = String.format('{0}/discover/movie?api_key={1}&language=en-US&sort_by=popularity.desc&include_adult=false&page={2}', base_link, api_key, page_number);
+        url = `${base_link}/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&page=${page_number}`;
             
                 $.ajax({
                     url: url,
@@ -217,7 +203,7 @@
     function search_movie(){
         $( "ul" ).empty();
             var search_term = $('#search').val();
-            search_link = String.format('{0}/search/movie?api_key={1}&query={2}', base_link, api_key, search_term);
+            search_link = `${base_link}/search/movie?api_key=${api_key}&query=${search_term}`;
             $.ajax({
                     url: search_link,
                     type: "GET",
@@ -230,32 +216,33 @@
                 })
     }
     function draw_html(result){
-            $( "ul" ).append(String.format(`<li>
+            $( "ul" ).append(`<li>
                 <div class="movie-posters-item">
                     <div class="center">
                         <div class="movie-poster-container x-movie-poster-container">
-                            <a href="https://imdb.com/title/{0}" target="_blank">
-                                <img class="series-poster x-series-poster" srcset="https://image.tmdb.org/t/p/original{1}">
-                                <div class="center title"><p>{2}</p></div>
+                            <a href="https://imdb.com/title/${result.imdb_id}" target="_blank">
+                                <img class="series-poster x-series-poster" srcset="https://image.tmdb.org/t/p/original${result.poster_path}">
+                                <div class="center title"><p>${result.original_title}</p></div>
                             </a>
                         </div>
                     </div>
                     <div class="center">
                         <div class="labels">
-                            <div class="center_title">{2} ({3})</div>
-                            <span class="rating" itemprop="rating">{4}/10</span><br>
-                            <span class="rating" itemprop="ratingCount">{5} votes</span><br>
-                            <span itemprop="genre">{6}</span>
-                            <a href="https://trakt.tv/search/tmdb/{7}?id_type=movie" class="label label-primary" target="_blank">Trakt</a>
-                            <a href="https://www.themoviedb.org/movie/{8}" class="label label-primary" target="_blank">The Movie DB</a>
-                            <a href="https://www.youtube.com/watch?v={9}" class="label label-primary" target="_blank">Trailer</a>
+                            <div class="center_title">${result.original_title} (${result.release_date})</div>
+                            <span class="rating" itemprop="rating">${result.imdb_rating}/10</span><br>
+                            <span class="rating" itemprop="ratingCount">${result.imdb_votes} votes</span><br>
+                            <span itemprop="genre">${result.imdb_genre}</span>
+                            <a href="https://trakt.tv/search/tmdb/${result.trakt_id}?id_type=movie" class="label label-primary" target="_blank">Trakt</a>
+                            <a href="https://www.themoviedb.org/movie/${result.tmdb_id}" class="label label-primary" target="_blank">The Movie DB</a>
+                            <a href="https://www.youtube.com/watch?v=${result.trailer_id}" class="label label-primary" target="_blank">Trailer</a>
                         </div>
                     </div>
                 </div>
-            </li>`, result.imdb_id, result.poster_path, result.original_title, result.release_date, result.imdb_rating, result.imdb_votes, result.imdb_genre, result.trakt_id, result.tmdb_id, result.trailer_id));
+            </li>`);
        
     }
     $(document).ready(function() {
+
         var page_number = 1;
         $("#previous").hide();
         
@@ -287,12 +274,6 @@
               }
         });
 
-        
-        
-        
-
-
-        
     })
 
 </script>
