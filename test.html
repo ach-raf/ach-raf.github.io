@@ -1,0 +1,34 @@
+<head>
+    <meta charset="utf-8">
+    <title>Discover Movies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    
+
+    <link href="Content/bootstrap.css?h=Z9VCLsHwZmuYlt36Xy0jwg" rel="stylesheet" type="text/css">
+    <link href="Content/bootstrap.toggle-switch.css?h=pD+HUinQ7OWfIJKGZypgsA" rel="stylesheet" type="text/css">
+    <link href="Content/theme.css?h=TR+AxNkdlGpE4ORL33dafQ" rel="stylesheet" type="text/css">
+    <link href="Content/movies.css?h=RPg3BW6ZB13VGaPL1TzoKg" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="scripts/library.js"></script>
+</head>
+<body>
+<script>
+	$(document).ready(function() {
+		base_url = 'https://www.omdbapi.com/?'
+		search_type = 's'
+		api_key = '953e6c6f'
+		title = 'batman'
+		plot_type = 'movie'
+		url = `${base_url}${search_type}=${title}&type=${plot_type}&apikey=${api_key}`
+		console.log(url)
+		
+		
+		api_call(url)
+		
+		
+	})
+</script>
+</body>
